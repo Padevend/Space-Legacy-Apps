@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================================================================
+   NASA RETRO-FUTURIST DESIGN TOKENS
+   Color Scheme: #0F172A (Deep Space) / #2E3192 (NASA Blue) / #C82027 (Mission Red)
+====================================================================== */
+:root {
+  --color-nasa-blue: #2E3192;
+  --color-mission-red: #C82027;
+  --color-deep-space: #0F172A;
+  --color-ice-white: #F8FAFC;
+  --color-text-dark: #1E293B;
+
+  --bg-dominant: #0F172A;
+  --bg-surface: #141B2D;
+  --bg-surface-alt: #1F2A44;
+  --border-surface: rgba(255, 255, 255, 0.12);
+  --color-primary: #2E3192;
+  --color-accent: #C82027;
+  --text-main: #FFFFFF;
+  --text-muted: #94A3B8;
+  --grid-stroke: rgba(56, 189, 248, 0.07);
+}
+
+.light {
+  --bg-dominant: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-surface-alt: #F1F5F9;
+  --border-surface: #CBD5E1;
+  --color-primary: #2E3192;
+  --color-accent: #C82027;
+  --text-main: #1E293B;
+  --text-muted: #64748B;
+  --grid-stroke: rgba(46, 49, 146, 0.06);
+}
+
+/* Base Body Styles */
+body {
+  background-color: var(--bg-dominant);
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Subtle Technical Grid Overlay */
+.geo-grid-texture {
+  background-image:
+    linear-gradient(to right, var(--grid-stroke) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-stroke) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Badge Pill Utility */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.625rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #050816;
+}
+::-webkit-scrollbar-thumb {
+  background: #1F2A44;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334066;
+}
+
+.light ::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+.light ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+.light ::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
