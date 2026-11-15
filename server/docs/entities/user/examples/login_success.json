@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "data": {
+    "user": {
+      "userId": "0a08f1ab-3b01-4103-8f2d-ad27799b436e",
+      "email": "auth-test-1794747285472@spacelegacy.test",
+      "role": "EDITOR",
+      "isActive": true,
+      "createdAt": "2026-11-15T12:54:46.303Z",
+      "updatedAt": "2026-11-15T12:54:47.353Z"
+    },
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF1dGgtdGVzdC0xNzk0NzQ3Mjg1NDcyQHNwYWNlbGVnYWN5LnRlc3QiLCJyb2xlIjoiRURJVE9SIiwic3ViIjoiMGEwOGYxYWItM2IwMS00MTAzLThmMmQtYWQyNzc5OWI0MzZlIiwiaXNzIjoic3BhY2UtbGVnYWN5IiwiYXVkIjoic3BhY2UtbGVnYWN5LWNsaWVudCIsImp0aSI6Ijc4NGRhYmNjLWQyYzItNDJhNC05NTViLWQ5ZDE2YzQ1N2FmZCIsImlhdCI6MTc5NDc0NzI4NywiZXhwIjoxNzk0NzQ4MTg3fQ.j75dXeKcz7uWWLoqmTmwXOC13S8ybIHm9MTzrmM0xPI",
+    "tokenType": "Bearer",
+    "expiresIn": 900
+  },
+  "meta": {
+    "requestId": "99b193ec-c817-480c-a448-7cc948cb63d7"
+  }
+}

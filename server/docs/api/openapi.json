@@ -1,0 +1,977 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SPACE LEGACY API",
+    "version": "1.0.0",
+    "description": "Educational API for NASA legacy space equipment and historical artifacts."
+  },
+  "paths": {
+    "/health/live": {
+      "get": {
+        "summary": "GET /health/live",
+        "description": "",
+        "tags": [
+          "health"
+        ],
+        "operationId": "health.root_live",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "summary": "GET /health/ready",
+        "description": "",
+        "tags": [
+          "health"
+        ],
+        "operationId": "health.root_ready",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/admin": {
+      "get": {
+        "summary": "Admin mission control back-office frontend single-page application",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Dashboard"
+        ],
+        "operationId": "admin.ui",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/health/live": {
+      "get": {
+        "summary": "Process Liveness Probe",
+        "description": "Checks whether the API server process is running.",
+        "tags": [
+          "Health"
+        ],
+        "operationId": "health.live",
+        "responses": {
+          "200": {
+            "def": {
+              "type": "object",
+              "shape": {
+                "status": {
+                  "def": {
+                    "type": "literal",
+                    "values": [
+                      "ok"
+                    ]
+                  },
+                  "type": "literal",
+                  "values": {}
+                },
+                "timestamp": {
+                  "def": {
+                    "type": "string",
+                    "checks": [
+                      {
+                        "def": {
+                          "type": "string",
+                          "format": "datetime",
+                          "check": "string_format",
+                          "offset": false,
+                          "local": false,
+                          "precision": null,
+                          "pattern": {}
+                        },
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "type": "string"
+                },
+                "uptimeSeconds": {
+                  "def": {
+                    "type": "number",
+                    "checks": []
+                  },
+                  "type": "number",
+                  "isFinite": true
+                }
+              }
+            },
+            "type": "object"
+          }
+        }
+      }
+    },
+    "/api/v1/health/ready": {
+      "get": {
+        "summary": "System Readiness Probe",
+        "description": "Checks external dependencies (PostgreSQL database).",
+        "tags": [
+          "Health"
+        ],
+        "operationId": "health.ready",
+        "responses": {
+          "200": {
+            "def": {
+              "type": "object",
+              "shape": {
+                "status": {
+                  "def": {
+                    "type": "literal",
+                    "values": [
+                      "ready"
+                    ]
+                  },
+                  "type": "literal",
+                  "values": {}
+                },
+                "timestamp": {
+                  "def": {
+                    "type": "string",
+                    "checks": [
+                      {
+                        "def": {
+                          "type": "string",
+                          "format": "datetime",
+                          "check": "string_format",
+                          "offset": false,
+                          "local": false,
+                          "precision": null,
+                          "pattern": {}
+                        },
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "type": "string"
+                },
+                "database": {
+                  "def": {
+                    "type": "literal",
+                    "values": [
+                      "connected"
+                    ]
+                  },
+                  "type": "literal",
+                  "values": {}
+                },
+                "latencyMs": {
+                  "def": {
+                    "type": "optional",
+                    "innerType": {
+                      "def": {
+                        "type": "number",
+                        "checks": []
+                      },
+                      "type": "number",
+                      "isFinite": true
+                    }
+                  },
+                  "type": "optional"
+                }
+              }
+            },
+            "type": "object"
+          },
+          "503": "SERVICE_UNAVAILABLE"
+        }
+      }
+    },
+    "/api/v1/bodies": {
+      "get": {
+        "summary": "GET /api/v1/bodies",
+        "description": "",
+        "tags": [
+          "celestial_bodies"
+        ],
+        "operationId": "celestial_bodies.public_list",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/machines": {
+      "get": {
+        "summary": "GET /api/v1/machines",
+        "description": "",
+        "tags": [
+          "machines"
+        ],
+        "operationId": "machines.public_list",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/machines/{slug}": {
+      "get": {
+        "summary": "GET /api/v1/machines/:slug",
+        "description": "",
+        "tags": [
+          "machines"
+        ],
+        "operationId": "machines.public_show",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/machines/{slug}/logbook": {
+      "get": {
+        "summary": "GET /api/v1/machines/:slug/logbook",
+        "description": "",
+        "tags": [
+          "logbook"
+        ],
+        "operationId": "logbook.public_list",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/machines/{slug}/logbook/{entry}": {
+      "get": {
+        "summary": "GET /api/v1/machines/:slug/logbook/:entry",
+        "description": "",
+        "tags": [
+          "logbook"
+        ],
+        "operationId": "logbook.public_show",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/session/anonymous": {
+      "post": {
+        "summary": "POST /api/v1/session/anonymous",
+        "description": "",
+        "tags": [
+          "identity"
+        ],
+        "operationId": "identity.anonymous_session",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/register": {
+      "post": {
+        "summary": "POST /api/v1/auth/register",
+        "description": "",
+        "tags": [
+          "identity"
+        ],
+        "operationId": "identity.register",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "summary": "POST /api/v1/auth/login",
+        "description": "",
+        "tags": [
+          "identity"
+        ],
+        "operationId": "identity.login",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "summary": "POST /api/v1/auth/logout",
+        "description": "",
+        "tags": [
+          "identity"
+        ],
+        "operationId": "identity.logout",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/me": {
+      "get": {
+        "summary": "GET /api/v1/me",
+        "description": "",
+        "tags": [
+          "identity"
+        ],
+        "operationId": "identity.me",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "patch": {
+        "summary": "PATCH /api/v1/me",
+        "description": "",
+        "tags": [
+          "identity"
+        ],
+        "operationId": "identity.update_profile",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "delete": {
+        "summary": "DELETE /api/v1/me",
+        "description": "",
+        "tags": [
+          "identity"
+        ],
+        "operationId": "identity.delete_account",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/me/password": {
+      "patch": {
+        "summary": "PATCH /api/v1/me/password",
+        "description": "",
+        "tags": [
+          "identity"
+        ],
+        "operationId": "identity.update_password",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/quizzes": {
+      "get": {
+        "summary": "GET /api/v1/quizzes",
+        "description": "",
+        "tags": [
+          "games"
+        ],
+        "operationId": "games.quizzes_list",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/quizzes/{slug}": {
+      "get": {
+        "summary": "GET /api/v1/quizzes/:slug",
+        "description": "",
+        "tags": [
+          "games"
+        ],
+        "operationId": "games.quizzes_show",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/quizzes/{slug}/attempts": {
+      "post": {
+        "summary": "POST /api/v1/quizzes/:slug/attempts",
+        "description": "",
+        "tags": [
+          "games"
+        ],
+        "operationId": "games.submit_attempt",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/me/progress": {
+      "get": {
+        "summary": "GET /api/v1/me/progress",
+        "description": "",
+        "tags": [
+          "games"
+        ],
+        "operationId": "games.me_progress",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/badges": {
+      "get": {
+        "summary": "GET /api/v1/badges",
+        "description": "",
+        "tags": [
+          "games"
+        ],
+        "operationId": "games.badges_list",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/overview": {
+      "get": {
+        "summary": "Back-office administration overview counters and metrics",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Dashboard"
+        ],
+        "operationId": "admin.overview",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/bodies/{id}": {
+      "patch": {
+        "summary": "Targeted partial PATCH update of a celestial body",
+        "description": "",
+        "tags": [
+          "Admin",
+          "CelestialBodies"
+        ],
+        "operationId": "admin.bodies.update",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/machines": {
+      "get": {
+        "summary": "List all machines including draft/unpublished",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Machines"
+        ],
+        "operationId": "admin.machines.index",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create new machine draft",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Machines"
+        ],
+        "operationId": "admin.machines.store",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/machines/{id}": {
+      "get": {
+        "summary": "Get full machine details by UUID for administration",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Machines"
+        ],
+        "operationId": "admin.machines.show",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Targeted partial PATCH update of a machine",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Machines"
+        ],
+        "operationId": "admin.machines.update",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete machine and cascade to sub-resources",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Machines"
+        ],
+        "operationId": "admin.machines.destroy",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/machines/{id}/sources": {
+      "post": {
+        "summary": "Add a verified source to a machine",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Sources"
+        ],
+        "operationId": "admin.machines.sources.store",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/machines/{id}/sources/{subId}": {
+      "patch": {
+        "summary": "Targeted partial PATCH update of a machine source",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Sources"
+        ],
+        "operationId": "admin.machines.sources.update",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a machine source",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Sources"
+        ],
+        "operationId": "admin.machines.sources.destroy",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/machines/{id}/facts": {
+      "post": {
+        "summary": "Add a key fact to a machine",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Facts"
+        ],
+        "operationId": "admin.machines.facts.store",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/machines/{id}/facts/{subId}": {
+      "patch": {
+        "summary": "Targeted partial PATCH update of a key fact",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Facts"
+        ],
+        "operationId": "admin.machines.facts.update",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a key fact",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Facts"
+        ],
+        "operationId": "admin.machines.facts.destroy",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/machines/{id}/events": {
+      "post": {
+        "summary": "Add a timeline event to a machine",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Events"
+        ],
+        "operationId": "admin.machines.events.store",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/machines/{id}/events/{subId}": {
+      "patch": {
+        "summary": "Targeted partial PATCH update of a timeline event",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Events"
+        ],
+        "operationId": "admin.machines.events.update",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a timeline event",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Events"
+        ],
+        "operationId": "admin.machines.events.destroy",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/machines/{id}/images": {
+      "post": {
+        "summary": "Add an image to a machine",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Images"
+        ],
+        "operationId": "admin.machines.images.store",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/machines/{id}/images/{subId}": {
+      "patch": {
+        "summary": "Targeted partial PATCH update of an image",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Images"
+        ],
+        "operationId": "admin.machines.images.update",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an image",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Images"
+        ],
+        "operationId": "admin.machines.images.destroy",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/logbook": {
+      "get": {
+        "summary": "List all logbook entries for administration",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Logbook"
+        ],
+        "operationId": "admin.logbook.index",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create new logbook entry for a machine",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Logbook"
+        ],
+        "operationId": "admin.logbook.store",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/logbook/{id}": {
+      "get": {
+        "summary": "Get single logbook entry by UUID",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Logbook"
+        ],
+        "operationId": "admin.logbook.show",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Targeted partial PATCH update of a logbook entry",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Logbook"
+        ],
+        "operationId": "admin.logbook.update",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a logbook entry",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Logbook"
+        ],
+        "operationId": "admin.logbook.destroy",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/ingestion/spec": {
+      "get": {
+        "summary": "Get ingestion bundle specification and limits",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Ingestion"
+        ],
+        "operationId": "admin.ingestion.spec",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/ingestion/template.zip": {
+      "get": {
+        "summary": "Download valid template ZIP bundle",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Ingestion"
+        ],
+        "operationId": "admin.ingestion.template",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/ingestion/validate": {
+      "post": {
+        "summary": "Dry-run validation of a ZIP bundle without database mutation",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Ingestion"
+        ],
+        "operationId": "admin.ingestion.validate",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/ingestion": {
+      "post": {
+        "summary": "Validate and import a ZIP bundle atomically into database",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Ingestion"
+        ],
+        "operationId": "admin.ingestion.import",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/ingestion/{id}": {
+      "get": {
+        "summary": "Get ingestion batch status and report",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Ingestion"
+        ],
+        "operationId": "admin.ingestion.show",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/generation/jobs": {
+      "get": {
+        "summary": "List asynchronous generation jobs",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Generation"
+        ],
+        "operationId": "admin.generation.jobs.index",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "post": {
+        "summary": "Submit an article or video generation job",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Generation"
+        ],
+        "operationId": "admin.generation.jobs.create",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/generation/jobs/{id}": {
+      "get": {
+        "summary": "Get generation job status and result",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Generation"
+        ],
+        "operationId": "admin.generation.jobs.show",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/generation/jobs/{id}/poll": {
+      "post": {
+        "summary": "Poll and synchronize external generation job status",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Generation"
+        ],
+        "operationId": "admin.generation.jobs.poll",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/generation/jobs/{id}/cancel": {
+      "post": {
+        "summary": "Cancel a pending or running generation job",
+        "description": "",
+        "tags": [
+          "Admin",
+          "Generation"
+        ],
+        "operationId": "admin.generation.jobs.cancel",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    }
+  }
+}

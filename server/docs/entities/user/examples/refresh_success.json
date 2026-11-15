@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "data": {
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF1dGgtdGVzdC0xNzk0NzQ3Mjg1NDcyQHNwYWNlbGVnYWN5LnRlc3QiLCJyb2xlIjoiRURJVE9SIiwic3ViIjoiMGEwOGYxYWItM2IwMS00MTAzLThmMmQtYWQyNzc5OWI0MzZlIiwiaXNzIjoic3BhY2UtbGVnYWN5IiwiYXVkIjoic3BhY2UtbGVnYWN5LWNsaWVudCIsImp0aSI6IjYwM2IzYTIyLWI4ZDItNDM3Yi05NWI0LWRlN2FiNmJkN2IyMSIsImlhdCI6MTc5NDc0NzI4OCwiZXhwIjoxNzk0NzQ4MTg4fQ.6Hf4IxDgvVfqv5qgfpmKJ7ezT6nRdWSLrQH3Dkf0rx8",
+    "tokenType": "Bearer",
+    "expiresIn": 900
+  },
+  "meta": {
+    "requestId": "a28522e4-7aff-4dfe-a533-725c671f33cd"
+  }
+}

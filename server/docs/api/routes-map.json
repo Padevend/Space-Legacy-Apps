@@ -1,0 +1,550 @@
+[
+  {
+    "method": "GET",
+    "path": "/admin",
+    "module": "dashboard",
+    "name": "admin.ui",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Admin mission control back-office frontend single-page application"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/admin/bodies/:id",
+    "module": "celestial_bodies",
+    "name": "admin.bodies.update",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Targeted partial PATCH update of a celestial body"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/generation/jobs",
+    "module": "generation",
+    "name": "admin.generation.jobs.index",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "List asynchronous generation jobs"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/generation/jobs",
+    "module": "generation",
+    "name": "admin.generation.jobs.create",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Submit an article or video generation job"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/generation/jobs/:id",
+    "module": "generation",
+    "name": "admin.generation.jobs.show",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Get generation job status and result"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/generation/jobs/:id/cancel",
+    "module": "generation",
+    "name": "admin.generation.jobs.cancel",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Cancel a pending or running generation job"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/generation/jobs/:id/poll",
+    "module": "generation",
+    "name": "admin.generation.jobs.poll",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Poll and synchronize external generation job status"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/ingestion",
+    "module": "ingestion",
+    "name": "admin.ingestion.import",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Validate and import a ZIP bundle atomically into database"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/ingestion/:id",
+    "module": "ingestion",
+    "name": "admin.ingestion.show",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Get ingestion batch status and report"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/ingestion/spec",
+    "module": "ingestion",
+    "name": "admin.ingestion.spec",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Get ingestion bundle specification and limits"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/ingestion/template.zip",
+    "module": "ingestion",
+    "name": "admin.ingestion.template",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Download valid template ZIP bundle"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/ingestion/validate",
+    "module": "ingestion",
+    "name": "admin.ingestion.validate",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Dry-run validation of a ZIP bundle without database mutation"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/logbook",
+    "module": "logbook",
+    "name": "admin.logbook.index",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "List all logbook entries for administration"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/logbook",
+    "module": "logbook",
+    "name": "admin.logbook.store",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Create new logbook entry for a machine"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/admin/logbook/:id",
+    "module": "logbook",
+    "name": "admin.logbook.destroy",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Delete a logbook entry"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/logbook/:id",
+    "module": "logbook",
+    "name": "admin.logbook.show",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Get single logbook entry by UUID"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/admin/logbook/:id",
+    "module": "logbook",
+    "name": "admin.logbook.update",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Targeted partial PATCH update of a logbook entry"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/machines",
+    "module": "machines",
+    "name": "admin.machines.index",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "List all machines including draft/unpublished"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/machines",
+    "module": "machines",
+    "name": "admin.machines.store",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Create new machine draft"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/admin/machines/:id",
+    "module": "machines",
+    "name": "admin.machines.destroy",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Delete machine and cascade to sub-resources"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/machines/:id",
+    "module": "machines",
+    "name": "admin.machines.show",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Get full machine details by UUID for administration"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/admin/machines/:id",
+    "module": "machines",
+    "name": "admin.machines.update",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Targeted partial PATCH update of a machine"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/machines/:id/events",
+    "module": "machines",
+    "name": "admin.machines.events.store",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Add a timeline event to a machine"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/admin/machines/:id/events/:subId",
+    "module": "machines",
+    "name": "admin.machines.events.destroy",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Delete a timeline event"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/admin/machines/:id/events/:subId",
+    "module": "machines",
+    "name": "admin.machines.events.update",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Targeted partial PATCH update of a timeline event"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/machines/:id/facts",
+    "module": "machines",
+    "name": "admin.machines.facts.store",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Add a key fact to a machine"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/admin/machines/:id/facts/:subId",
+    "module": "machines",
+    "name": "admin.machines.facts.destroy",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Delete a key fact"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/admin/machines/:id/facts/:subId",
+    "module": "machines",
+    "name": "admin.machines.facts.update",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Targeted partial PATCH update of a key fact"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/machines/:id/images",
+    "module": "machines",
+    "name": "admin.machines.images.store",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Add an image to a machine"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/admin/machines/:id/images/:subId",
+    "module": "machines",
+    "name": "admin.machines.images.destroy",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Delete an image"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/admin/machines/:id/images/:subId",
+    "module": "machines",
+    "name": "admin.machines.images.update",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Targeted partial PATCH update of an image"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/machines/:id/sources",
+    "module": "machines",
+    "name": "admin.machines.sources.store",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Add a verified source to a machine"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/admin/machines/:id/sources/:subId",
+    "module": "machines",
+    "name": "admin.machines.sources.destroy",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Delete a machine source"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/admin/machines/:id/sources/:subId",
+    "module": "machines",
+    "name": "admin.machines.sources.update",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Targeted partial PATCH update of a machine source"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/overview",
+    "module": "dashboard",
+    "name": "admin.overview",
+    "auth": "user",
+    "role": "EDITOR",
+    "rateLimitTier": "admin",
+    "summary": "Back-office administration overview counters and metrics"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "module": "identity",
+    "name": "identity.login",
+    "auth": "public",
+    "rateLimitTier": "login",
+    "summary": "POST /api/v1/auth/login"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/logout",
+    "module": "identity",
+    "name": "identity.logout",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "POST /api/v1/auth/logout"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/auth/register",
+    "module": "identity",
+    "name": "identity.register",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "POST /api/v1/auth/register"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/badges",
+    "module": "games",
+    "name": "games.badges_list",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "GET /api/v1/badges"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/bodies",
+    "module": "celestial_bodies",
+    "name": "celestial_bodies.public_list",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "GET /api/v1/bodies"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/health/live",
+    "module": "health",
+    "name": "health.live",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "Process Liveness Probe"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/health/ready",
+    "module": "health",
+    "name": "health.ready",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "System Readiness Probe"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/machines",
+    "module": "machines",
+    "name": "machines.public_list",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "GET /api/v1/machines"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/machines/:slug",
+    "module": "machines",
+    "name": "machines.public_show",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "GET /api/v1/machines/:slug"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/machines/:slug/logbook",
+    "module": "logbook",
+    "name": "logbook.public_list",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "GET /api/v1/machines/:slug/logbook"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/machines/:slug/logbook/:entry",
+    "module": "logbook",
+    "name": "logbook.public_show",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "GET /api/v1/machines/:slug/logbook/:entry"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/me",
+    "module": "identity",
+    "name": "identity.delete_account",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "DELETE /api/v1/me"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/me",
+    "module": "identity",
+    "name": "identity.me",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "GET /api/v1/me"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/me",
+    "module": "identity",
+    "name": "identity.update_profile",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "PATCH /api/v1/me"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/me/password",
+    "module": "identity",
+    "name": "identity.update_password",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "PATCH /api/v1/me/password"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/me/progress",
+    "module": "games",
+    "name": "games.me_progress",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "GET /api/v1/me/progress"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/quizzes",
+    "module": "games",
+    "name": "games.quizzes_list",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "GET /api/v1/quizzes"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/quizzes/:slug",
+    "module": "games",
+    "name": "games.quizzes_show",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "GET /api/v1/quizzes/:slug"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/quizzes/:slug/attempts",
+    "module": "games",
+    "name": "games.submit_attempt",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "POST /api/v1/quizzes/:slug/attempts"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/session/anonymous",
+    "module": "identity",
+    "name": "identity.anonymous_session",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "POST /api/v1/session/anonymous"
+  },
+  {
+    "method": "GET",
+    "path": "/health/live",
+    "module": "health",
+    "name": "health.root_live",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "GET /health/live"
+  },
+  {
+    "method": "GET",
+    "path": "/health/ready",
+    "module": "health",
+    "name": "health.root_ready",
+    "auth": "public",
+    "rateLimitTier": "publicRead",
+    "summary": "GET /health/ready"
+  }
+]

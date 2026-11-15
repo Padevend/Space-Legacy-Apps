@@ -1,0 +1,109 @@
+[
+  {
+    "link": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-059C",
+    "target": ["Apollo", "Lunar Module", "Moon", "spacecraft", "lunar landing"],
+    "output_name": "apollo_lunar_modules"
+  },
+  {
+    "link": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C",
+    "target": [
+      "Lunar Roving Vehicle",
+      "Apollo",
+      "Moon",
+      "rover",
+      "electric vehicle"
+    ],
+    "output_name": "lunar_roving_vehicles"
+  },
+  {
+    "link": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-099C",
+    "target": ["ALSEP", "Apollo", "lunar science", "seismometer", "Moon"],
+    "output_name": "alsep_packages"
+  },
+  {
+    "link": "https://science.nasa.gov/mission/surveyor-3/",
+    "target": ["Surveyor", "Moon", "robotic probe", "lunar landing"],
+    "output_name": "surveyor_3"
+  },
+  {
+    "link": "https://science.nasa.gov/mission/mars-pathfinder/",
+    "target": [
+      "Mars",
+      "Sojourner",
+      "Pathfinder",
+      "rover",
+      "robotic exploration"
+    ],
+    "output_name": "mars_pathfinder"
+  },
+  {
+    "link": "https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/",
+    "target": [
+      "Mars",
+      "Spirit",
+      "Opportunity",
+      "rover",
+      "planetary exploration"
+    ],
+    "output_name": "spirit_opportunity"
+  },
+  {
+    "link": "https://science.nasa.gov/mission/viking-1/",
+    "target": [
+      "Viking",
+      "Mars",
+      "lander",
+      "spacecraft",
+      "planetary exploration"
+    ],
+    "output_name": "viking_1"
+  },
+  {
+    "link": "https://science.nasa.gov/mission/insight/",
+    "target": [
+      "InSight",
+      "Mars",
+      "marsquake",
+      "seismology",
+      "planetary science"
+    ],
+    "output_name": "insight"
+  },
+  {
+    "link": "https://science.nasa.gov/mission/dawn/",
+    "target": ["Dawn", "Vesta", "Ceres", "asteroid", "spacecraft"],
+    "output_name": "dawn"
+  },
+  {
+    "link": "https://science.nasa.gov/mission/near-shoemaker/",
+    "target": ["NEAR Shoemaker", "Eros", "asteroid", "spacecraft", "landing"],
+    "output_name": "near_shoemaker"
+  },
+  {
+    "link": "https://science.nasa.gov/mission/pioneer-10/",
+    "target": [
+      "Pioneer",
+      "deep space",
+      "outer planets",
+      "spacecraft",
+      "solar system"
+    ],
+    "output_name": "pioneer_10"
+  },
+  {
+    "link": "https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/",
+    "target": ["Ingenuity", "Mars", "helicopter", "rotorcraft", "flight"],
+    "output_name": "ingenuity"
+  },
+  {
+    "link": "https://science.nasa.gov/mission/kepler/",
+    "target": [
+      "Kepler",
+      "exoplanet",
+      "space telescope",
+      "astronomy",
+      "planet detection"
+    ],
+    "output_name": "kepler"
+  }
+]

@@ -1,0 +1,119 @@
+{
+  "name": "space-legacy-server",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.ts",
+  "packageManager": "pnpm@10.18.3",
+  "imports": {
+    "#modules/*": {
+      "node": "./build/app/modules/*.js",
+      "default": "./app/modules/*.js"
+    },
+    "#contracts/*": {
+      "node": "./build/app/contracts/*.js",
+      "default": "./app/contracts/*.js"
+    },
+    "#infrastructure/*": {
+      "node": "./build/app/infrastructure/*.js",
+      "default": "./app/infrastructure/*.js"
+    },
+    "#middleware/*": {
+      "node": "./build/app/middleware/*.js",
+      "default": "./app/middleware/*.js"
+    },
+    "#exceptions/*": {
+      "node": "./build/app/exceptions/*.js",
+      "default": "./app/exceptions/*.js"
+    },
+    "#shared/*": {
+      "node": "./build/app/shared/*.js",
+      "default": "./app/shared/*.js"
+    },
+    "#config/*": {
+      "node": "./build/config/*.js",
+      "default": "./config/*.js"
+    },
+    "#start/*": {
+      "node": "./build/start/*.js",
+      "default": "./start/*.js"
+    },
+    "#providers/*": {
+      "node": "./build/providers/*.js",
+      "default": "./providers/*.js"
+    },
+    "#commands/*": {
+      "node": "./build/commands/*.js",
+      "default": "./commands/*.js"
+    },
+    "#database/*": {
+      "node": "./build/database/*.js",
+      "default": "./database/*.js"
+    },
+    "#tests/*": {
+      "node": "./build/tests/*.js",
+      "default": "./tests/*.js"
+    }
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "tsx watch bin/server.ts",
+    "build": "prisma generate && tsc",
+    "vercel-build": "prisma generate && tsc",
+    "start": "node build/bin/server.js",
+    "ace": "tsx ace.ts",
+    "lint": "eslint .",
+    "format": "prettier --write \"*.ts\" \"api/**/*.ts\" \"src/**/*.ts\" \"app/**/*.ts\" \"bin/**/*.ts\" \"commands/**/*.ts\" \"config/**/*.ts\" \"start/**/*.ts\" \"tests/**/*.ts\" \"providers/**/*.ts\"",
+    "format:check": "prettier --check \"*.ts\" \"api/**/*.ts\" \"src/**/*.ts\" \"app/**/*.ts\" \"bin/**/*.ts\" \"commands/**/*.ts\" \"config/**/*.ts\" \"start/**/*.ts\" \"tests/**/*.ts\" \"providers/**/*.ts\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:unit": "vitest run tests/unit",
+    "test:e2e": "vitest run tests/e2e",
+    "test:security": "vitest run tests/security",
+    "test:contract": "vitest run tests/contract",
+    "test:drift": "vitest run tests/contract/drift.test.ts",
+    "verify": "prisma validate && tsc --noEmit && pnpm lint && pnpm format:check && pnpm test && pnpm test:drift && pnpm audit --audit-level=high && pnpm build",
+    "verify:docker": "tsx commands/verify-docker.ts",
+    "routes:list": "tsx ace.ts routes:list",
+    "docs:generate": "tsx ace.ts docs:generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:reset": "tsx commands/db_reset.ts",
+    "admin:create": "tsx commands/create_admin.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "2.1.8",
+    "@hono/zod-openapi": "1.6.3",
+    "@node-rs/argon2": "2.0.2",
+    "@prisma/adapter-pg": "7.10.1",
+    "@prisma/client": "7.10.1",
+    "adm-zip": "^0.6.1",
+    "commander": "15.1.0",
+    "dotenv": "16.4.7",
+    "hono": "4.13.18",
+    "jose": "6.2.17",
+    "pg": "8.23.1",
+    "pino": "10.4.0",
+    "pino-pretty": "13.2.0",
+    "sanitize-html": "2.18.2",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "22.13.10",
+    "@types/pg": "8.11.11",
+    "@types/sanitize-html": "2.13.0",
+    "eslint": "9.21.0",
+    "eslint-plugin-boundaries": "^7.4.3",
+    "prettier": "3.5.3",
+    "prisma": "7.10.1",
+    "tsx": "4.19.3",
+    "typescript": "5.8.2",
+    "vitest": "3.2.6"
+  },
+  "pnpm": {
+    "overrides": {
+      "tinypool": ">=2.1.2"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Request validation failed.",
+    "status": 422,
+    "requestId": "f13501ea-b92d-44c9-8543-77ab5c1e8cdf",
+    "details": [
+      {
+        "path": "body.",
+        "code": "unrecognized_keys",
+        "message": "Unrecognized key: \"injectedField\""
+      }
+    ]
+  }
+}

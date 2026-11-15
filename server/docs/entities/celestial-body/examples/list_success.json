@@ -1,0 +1,72 @@
+{
+  "success": true,
+  "data": [
+    {
+      "celestialBodyId": "06bba060-71be-5850-acd7-e185aafb72dc",
+      "name": "Earth",
+      "bodyType": "PLANET",
+      "description": null
+    },
+    {
+      "celestialBodyId": "31ae135c-80f8-5804-ba1a-6aaf0d52b0e6",
+      "name": "Eros",
+      "bodyType": "ASTEROID",
+      "description": null
+    },
+    {
+      "celestialBodyId": "00e486a1-85b2-5035-a70c-c03867959453",
+      "name": "Jupiter",
+      "bodyType": "PLANET",
+      "description": null
+    },
+    {
+      "celestialBodyId": "930f785c-a991-5e33-bee5-a719e1680435",
+      "name": "Luna",
+      "bodyType": "MOON",
+      "description": null
+    },
+    {
+      "celestialBodyId": "092ab3a1-4bed-5e00-96e7-895d226b3ceb",
+      "name": "Mars",
+      "bodyType": "PLANET",
+      "description": null
+    },
+    {
+      "celestialBodyId": "3c482120-3e7a-5d81-8cf2-bc977c9e4ce3",
+      "name": "Moon",
+      "bodyType": "MOON",
+      "description": null
+    },
+    {
+      "celestialBodyId": "678e0f56-b09e-4508-9762-f4019a536554",
+      "name": "Moon-Equip-1794745499522",
+      "bodyType": "MOON",
+      "description": null
+    },
+    {
+      "celestialBodyId": "473da431-b128-4cd3-8017-7a7d057ecfe0",
+      "name": "Moon-Equip-1794745777281",
+      "bodyType": "MOON",
+      "description": null
+    },
+    {
+      "celestialBodyId": "cabc1303-c881-4f71-8082-64cf3c851e03",
+      "name": "Moon-Equip-1794746820963",
+      "bodyType": "MOON",
+      "description": null
+    },
+    {
+      "celestialBodyId": "74cbc096-33d0-47e6-915c-ac6e6efd99bb",
+      "name": "Moon-Equip-1794747178883",
+      "bodyType": "MOON",
+      "description": null
+    }
+  ],
+  "meta": {
+    "requestId": "b1176446-0109-492a-bf7e-5771e2094ce1",
+    "page": 1,
+    "pageSize": 10,
+    "total": 17,
+    "totalPages": 2
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/api/$1"
+    }
+  ],
+  "functions": {
+    "api/**/*.ts": {
+      "includeFiles": "dashboard/**"
+    },
+    "index.ts": {
+      "includeFiles": "dashboard/**"
+    },
+    "app.ts": {
+      "includeFiles": "dashboard/**"
+    },
+    "server.ts": {
+      "includeFiles": "dashboard/**"
+    },
+    "src/index.ts": {
+      "includeFiles": "dashboard/**"
+    }
+  }
+}

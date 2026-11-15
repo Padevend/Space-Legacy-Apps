@@ -1,0 +1,441 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ======================================================
+// ENUMS (Section 5)
+// ======================================================
+
+enum AccountRole {
+  USER
+  ADMIN
+}
+
+enum MachineKind {
+  LANDER
+  ROVER
+  HELICOPTER
+  LANDING_CRAFT_STAGE
+  INSTRUMENT
+  ORBITER
+  OTHER
+}
+
+enum MachineState {
+  STILL_ACTIVE
+  STOPPED_ANSWERING
+  JOB_FINISHED
+  LEFT_ON_PURPOSE
+  UNKNOWN
+}
+
+enum MediaLabel {
+  REAL_PHOTO
+  RECONSTRUCTION
+  AI_ILLUSTRATION
+  DATA_CHART
+}
+
+enum ContentOrigin {
+  AUTHORED
+  GENERATED
+}
+
+enum GenerationKind {
+  VIDEO
+  ARTICLE
+}
+
+enum GenerationStatus {
+  QUEUED
+  RUNNING
+  SUCCEEDED
+  FAILED
+  CANCELLED
+}
+
+enum QuizLevel {
+  EXPLORER
+  EXPERT
+}
+
+enum BadgeRule {
+  QUIZ_COMPLETED_COUNT
+  PERFECT_SCORE_COUNT
+  BODY_ALL_QUIZZES
+}
+
+enum IngestionStatus {
+  RECEIVED
+  VALIDATED
+  REJECTED
+  COMMITTED
+  FAILED
+}
+
+// ======================================================
+// IDENTITY MODULE (Section 5)
+// ======================================================
+
+// module: identity
+model Visitor {
+  id         String         @id @default(uuid()) @db.Uuid
+  createdAt  DateTime       @default(now())
+  lastSeenAt DateTime       @default(now())
+  account    Account?
+  sessions   Session[]
+  attempts   QuizAttempt[]
+  badges     VisitorBadge[]
+
+  @@index([lastSeenAt])
+  @@map("visitors")
+}
+
+// module: identity
+model Account {
+  id           String      @id @default(uuid()) @db.Uuid
+  visitorId    String      @unique @db.Uuid
+  visitor      Visitor     @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  email        String      @unique
+  passwordHash String
+  displayName  String
+  role         AccountRole @default(USER)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@map("accounts")
+}
+
+// module: identity
+model Session {
+  id         String   @id @default(uuid()) @db.Uuid
+  visitorId  String   @db.Uuid
+  visitor    Visitor  @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  tokenHash  String   @unique
+  expiresAt  DateTime
+  lastUsedAt DateTime @default(now())
+  createdAt  DateTime @default(now())
+
+  @@index([visitorId])
+  @@index([expiresAt])
+  @@map("sessions")
+}
+
+// ======================================================
+// CELESTIAL BODIES MODULE (Section 5)
+// ======================================================
+
+// module: celestial_bodies
+model CelestialBody {
+  id          String    @id @default(uuid()) @db.Uuid
+  slug        String    @unique
+  name        String
+  summary     String
+  imagePath   String?
+  sortOrder   Int       @default(0)
+  isPublished Boolean   @default(true)
+  machines    Machine[]
+  quizzes     Quiz[]
+  badges      Badge[]
+
+  @@map("celestial_bodies")
+}
+
+// ======================================================
+// MACHINES MODULE (Section 5)
+// ======================================================
+
+// module: machines
+model Machine {
+  id                String          @id @default(uuid()) @db.Uuid
+  slug              String          @unique
+  bodyId            String          @db.Uuid
+  body              CelestialBody   @relation(fields: [bodyId], references: [id], onDelete: Restrict)
+  name              String
+  kind              MachineKind
+  state             MachineState
+  stateSince        String?
+  launchYear        Int?
+  arrivalYear       Int?
+  summary           String
+  description       String          @db.Text
+  missionPurpose    String          @db.Text
+  howItWorked       String          @db.Text
+  discoveries       String          @db.Text
+  currentStatusNote String?         @db.Text
+  latitude          Float?
+  longitude         Float?
+  isPublished       Boolean         @default(false)
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  sources           MachineSource[]
+  facts             MachineFact[]
+  events            MachineEvent[]
+  images            MachineImage[]
+  logbook           LogbookEntry[]
+  quizzes           Quiz[]
+
+  @@index([bodyId, isPublished])
+  @@index([kind])
+  @@index([state])
+  @@index([arrivalYear])
+  @@map("machines")
+}
+
+// module: machines
+model MachineSource {
+  id        String         @id @default(uuid()) @db.Uuid
+  machineId String         @db.Uuid
+  machine   Machine        @relation(fields: [machineId], references: [id], onDelete: Cascade)
+  title     String
+  publisher String
+  url       String
+  facts     MachineFact[]
+  events    MachineEvent[]
+
+  @@unique([machineId, url])
+  @@map("machine_sources")
+}
+
+// module: machines
+model MachineFact {
+  id        String        @id @default(uuid()) @db.Uuid
+  machineId String        @db.Uuid
+  machine   Machine       @relation(fields: [machineId], references: [id], onDelete: Cascade)
+  label     String
+  value     String
+  unit      String?
+  sourceId  String        @db.Uuid
+  source    MachineSource @relation(fields: [sourceId], references: [id], onDelete: Restrict)
+  sortOrder Int           @default(0)
+
+  @@index([machineId, sortOrder])
+  @@map("machine_facts")
+}
+
+// module: machines
+model MachineEvent {
+  id          String        @id @default(uuid()) @db.Uuid
+  machineId   String        @db.Uuid
+  machine     Machine       @relation(fields: [machineId], references: [id], onDelete: Cascade)
+  dateLabel   String
+  dateIso     DateTime?
+  title       String
+  description String        @db.Text
+  sourceId    String        @db.Uuid
+  source      MachineSource @relation(fields: [sourceId], references: [id], onDelete: Restrict)
+  sortOrder   Int           @default(0)
+
+  @@index([machineId, sortOrder])
+  @@map("machine_events")
+}
+
+// module: machines
+model MachineImage {
+  id        String     @id @default(uuid()) @db.Uuid
+  machineId String     @db.Uuid
+  machine   Machine    @relation(fields: [machineId], references: [id], onDelete: Cascade)
+  path      String
+  alt       String
+  label     MediaLabel
+  credit    String
+  sourceUrl String?
+  width     Int
+  height    Int
+  isCover   Boolean    @default(false)
+  sortOrder Int        @default(0)
+
+  @@index([machineId, sortOrder])
+  @@map("machine_images")
+}
+
+// ======================================================
+// LOGBOOK MODULE (Section 5)
+// ======================================================
+
+// module: logbook
+model LogbookEntry {
+  id               String          @id @default(uuid()) @db.Uuid
+  machineId        String          @db.Uuid
+  machine          Machine         @relation(fields: [machineId], references: [id], onDelete: Cascade)
+  slug             String
+  title            String
+  summary          String
+  articleMarkdown  String?         @db.Text
+  articleOrigin    ContentOrigin?
+  videoUrl         String?
+  videoOrigin      ContentOrigin?
+  videoDurationSec Int?
+  isPublished      Boolean         @default(false)
+  publishedAt      DateTime?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  jobs             GenerationJob[]
+
+  @@unique([machineId, slug])
+  @@map("logbook_entries")
+}
+
+// ======================================================
+// GENERATION MODULE (Section 5)
+// ======================================================
+
+// module: generation
+model GenerationJob {
+  id             String           @id @default(uuid()) @db.Uuid
+  logbookEntryId String           @db.Uuid
+  logbookEntry   LogbookEntry     @relation(fields: [logbookEntryId], references: [id], onDelete: Cascade)
+  kind           GenerationKind
+  status         GenerationStatus @default(QUEUED)
+  externalJobId  String?
+  requestedById  String?          @db.Uuid
+  requestPayload Json
+  resultText     String?          @db.Text
+  resultUrl      String?
+  errorCode      String?
+  errorMessage   String?
+  attempts       Int              @default(0)
+  createdAt      DateTime         @default(now())
+  startedAt      DateTime?
+  finishedAt     DateTime?
+  updatedAt      DateTime         @updatedAt
+
+  @@index([status, updatedAt])
+  @@map("generation_jobs")
+}
+
+// ======================================================
+// GAMES MODULE (Section 5)
+// ======================================================
+
+// module: games
+model Quiz {
+  id          String         @id @default(uuid()) @db.Uuid
+  slug        String         @unique
+  title       String
+  level       QuizLevel
+  bodyId      String?        @db.Uuid
+  body        CelestialBody? @relation(fields: [bodyId], references: [id], onDelete: SetNull)
+  machineId   String?        @db.Uuid
+  machine     Machine?       @relation(fields: [machineId], references: [id], onDelete: SetNull)
+  isPublished Boolean        @default(false)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  questions   QuizQuestion[]
+  attempts    QuizAttempt[]
+
+  @@map("quizzes")
+}
+
+// module: games
+model QuizQuestion {
+  id          String       @id @default(uuid()) @db.Uuid
+  quizId      String       @db.Uuid
+  quiz        Quiz         @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  prompt      String       @db.Text
+  explanation String       @db.Text
+  sortOrder   Int          @default(0)
+  options     QuizOption[]
+  answers     QuizAnswer[]
+
+  @@map("quiz_questions")
+}
+
+// module: games
+model QuizOption {
+  id         String       @id @default(uuid()) @db.Uuid
+  questionId String       @db.Uuid
+  question   QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  label      String
+  isCorrect  Boolean      @default(false)
+  sortOrder  Int          @default(0)
+  answers    QuizAnswer[]
+
+  @@map("quiz_options")
+}
+
+// module: games
+model QuizAttempt {
+  id        String       @id @default(uuid()) @db.Uuid
+  visitorId String       @db.Uuid
+  visitor   Visitor      @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  quizId    String       @db.Uuid
+  quiz      Quiz         @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  score     Int
+  maxScore  Int
+  createdAt DateTime     @default(now())
+  answers   QuizAnswer[]
+
+  @@index([visitorId, quizId])
+  @@map("quiz_attempts")
+}
+
+// module: games
+model QuizAnswer {
+  id         String       @id @default(uuid()) @db.Uuid
+  attemptId  String       @db.Uuid
+  attempt    QuizAttempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  questionId String       @db.Uuid
+  question   QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  optionId   String       @db.Uuid
+  option     QuizOption   @relation(fields: [optionId], references: [id], onDelete: Cascade)
+  isCorrect  Boolean
+
+  @@unique([attemptId, questionId])
+  @@map("quiz_answers")
+}
+
+// module: games
+model Badge {
+  id          String         @id @default(uuid()) @db.Uuid
+  slug        String         @unique
+  name        String
+  description String
+  iconKey     String
+  rule        BadgeRule
+  threshold   Int            @default(1)
+  bodyId      String?        @db.Uuid
+  body        CelestialBody? @relation(fields: [bodyId], references: [id], onDelete: SetNull)
+  sortOrder   Int            @default(0)
+  earned      VisitorBadge[]
+
+  @@map("badges")
+}
+
+// module: games
+model VisitorBadge {
+  visitorId String   @db.Uuid
+  visitor   Visitor  @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  badgeId   String   @db.Uuid
+  badge     Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  earnedAt  DateTime @default(now())
+
+  @@id([visitorId, badgeId])
+  @@map("visitor_badges")
+}
+
+// ======================================================
+// INGESTION MODULE (Section 5)
+// ======================================================
+
+// module: ingestion
+model IngestionBatch {
+  id            String          @id @default(uuid()) @db.Uuid
+  requestedById String?         @db.Uuid
+  filename      String
+  sizeBytes     Int
+  sha256        String
+  status        IngestionStatus @default(RECEIVED)
+  rejectCode    String?
+  rejectReason  String?
+  report        Json?
+  createdAt     DateTime        @default(now())
+  finishedAt    DateTime?
+
+  @@index([createdAt])
+  @@map("ingestion_batches")
+}

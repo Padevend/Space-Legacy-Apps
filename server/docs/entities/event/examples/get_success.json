@@ -1,0 +1,41 @@
+{
+  "success": true,
+  "data": {
+    "eventId": "6df88299-bd0a-4971-a9f9-ba9e6277083a",
+    "missionId": "9b13bf62-76d4-4f6c-a8e5-1ea04ea7e8b3",
+    "title": "Apollo 11 Lunar Landing",
+    "description": "Lunar module Eagle lands at Tranquility Base.",
+    "eventType": "LANDING",
+    "eventDate": "1969-07-20",
+    "eventTime": "20:17:40",
+    "timeStandard": "UTC",
+    "datePrecision": "EXACT",
+    "isEstimated": false,
+    "sequenceOrder": 1,
+    "createdAt": "2026-11-15T12:54:46.916Z",
+    "mission": {
+      "missionId": "9b13bf62-76d4-4f6c-a8e5-1ea04ea7e8b3",
+      "name": "Apollo 11 Mission-1794747286795",
+      "slug": "apollo-11-1794747286795"
+    },
+    "equipment": [
+      {
+        "equipmentId": "f1fdc733-b86c-49dc-8b23-09e5ae22570a",
+        "name": "Eagle Lunar Module-1794747286804",
+        "slug": "eagle-lm-1794747286804",
+        "roleInEvent": "Landed Craft",
+        "description": "Descent stage remained on surface"
+      }
+    ],
+    "locations": [
+      {
+        "locationId": "d47ea67e-fb87-4b58-b0ea-df0a24415f04",
+        "name": "Mare Tranquillitatis-1794747286820",
+        "locationRole": "Touchdown site"
+      }
+    ]
+  },
+  "meta": {
+    "requestId": "d93ea50d-b45c-4a47-99fd-97b322a66991"
+  }
+}

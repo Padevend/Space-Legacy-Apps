@@ -1,0 +1,9 @@
+{
+  "success": false,
+  "error": {
+    "code": "CONFLICT",
+    "message": "A record with this field already exists.",
+    "status": 409,
+    "requestId": "b2322607-d708-4b2c-8237-1a31f49df24a"
+  }
+}
